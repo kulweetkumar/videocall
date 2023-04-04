@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>Odoco</title>
+    <link rel="icon" type="image/x-icon" href="http://odoco.com.sg/public/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel='stylesheet' href='assets/css/app.css' type="text/css">
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script type="module" src='assets/js/rtc.js'></script>
+    <script type="module" src='assets/js/events.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js" integrity="sha256-2qQheewaqnZlXJ3RJRghVUwD/3fD9HNqxh4C+zvgmF4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js'></script>
+    <script src='https://cdn.rawgit.com/yahoo/xss-filters/master/dist/xss-filters.js'></script>
+    <script src='assets/js/autolink.js'></script>
+    <style>
+        span#randomNumber {
+    display: none;
+}
+div#MaiiSczx8b1voZDEAAAR video {
+    object-fit: cover;
+}
+div#MaiiSczx8b1voZDEAAAR {
+    width: 100% !important;
+    object-fit: cover !important;
+}
+video#tMOYp267o52fUqHfAAAs-video {
+    display: none !important;
+}
+div#tMOYp267o52fUqHfAAAs {
+    width: 100% !IMPORTANT;
+}
+div#\35 SsJMxbr_heyQ2PfAABO {
+    width: 100% !important;
+}
+video {
+    object-fit: cover;
+}
+#videos .card {
+    width: 100% !important;
+    border: 0 !important;
+    transition: .5s linear;
+    transition-delay: 250ms;
+}
+.local-video.mirror-mode {
+    position: absolute;
+    top: 0;
+    left: inherit;
+    z-index: 9999;
+}
+.new_color {
+    background: #f1af01;
+}
+#main-section .fixed-top {
+    position: absolute;
+    bottom: 30px;
+    top: unset !important;
+    background: transparent;
+    justify-content: center;
+}
+#chat-messages {
+    height: 81vh !important;
+}
+.chat-col {
+    height: 100vh !important;
+    overflow: hidden !important;
+}
+.remote-video {
+    height: 100vh !important;
+    max-height: 100vh !important;
+}
+.main {
+    padding-top: 0 !important;
+}
+div#videos {
+    margin: 0  -15px!important;
+}
+.chat-col form {
+    position: fixed;
+    width: 100%;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    padding-right: 3px;
+    bottom: 0;
+}
+.chat-col form .input-group {
+    display: block !important;
+}
+.chat-col form .input-group-append {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 100%;
+    z-index: 99;
+}
+.chat-col .input-group textarea {
+    padding-right: 70px;
+}
+button {
+    cursor: pointer !important;
+    -webkit-cursor: pointer !important;
+}
+/* .chat-col.chat-opened {
+    top: 0px !important;
+    padding-bottom: 0 !important;
+    height: 100vh !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden !important;
+} */
+.chat-col.chat-opened {
+    top: unset !important;
+    padding-bottom: 0 !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden !important;
+    bottom: 0 !important;
+    transform: translateX(100%);
+    max-width: 25%;
+    flex: 0 0 25%;
+    z-index: 99999;
+    background: #fff;
+    position: fixed;
+    width: 25%;
+}
+.chat-opened.opened-it {
+    transform: translate(0);
+}
+#share-screen img {
+    transform: rotate(45deg);
+}   
+.msg {
+    background-color: #f1af01 !important;
+    margin-left: 16px !important;
+    padding: 10px !important;
+    margin-right: 17px !important;
+    line-height: initial !important;
+}
+.pull-right.room-comm button.vcut {
+    background: red;
+}
+#videos .card.full-width-cstm {
+    min-width: 100vw;
+    transition: .5s linear;
+    transition-delay: 250ms;
+}
+#chat-messages .card.full-width-cstm {
+    min-width: unset;
+}
+.main.full-icon-full {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+.pull-right.room-comm button {
+    width: 70px;
+    height: 70px;
+    margin: 0 20px;
+    border-radius: 100% !important;
+    background: #000;
+}
+.pull-right.room-comm .fa {
+    font-size: 28px;
+}
+
+@media (max-width: 768px) {
+    .remote-video {
+        height: 100vh !important;
+        max-height: 100vh !important;
+    }
+    .chat-col.chat-opened {
+        width: 100%;
+        height: 50vh !important;
+        min-height: 50vh !important;
+        max-width: 100%;
+        flex: 0 0 100%; 
+        transform: translateX(0%);
+        transform: translateY(100%);
+    }
+    .chat-opened.opened-it {
+        transform: translate(0);
+    }
+    #videos .card.full-width-cstm video {
+        height: 50vh !important;
+        max-height: 50vh !important;
+    }
+    #videos .card {
+        min-width: 100vw !important;
+    }
+    .chat-box {
+        bottom: 0 !important;
+    }
+    #chat-messages .col-10.card.chat-card.msg {
+        min-width: 60vw !important;
+        flex: 0 0 60% !important;
+        max-width: 60% !important;
+        width: 60vw !important;
+    }
+    #chat-messages {
+        height: 34vh !important;
+    }
+}
+@media (max-width: 767px) {
+.pull-right.room-comm button {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+}
+.pull-right.room-comm img {
+    width: 30px;
+}
+.pull-right.room-comm .fa {
+    font-size: 18px;
+}
+video#local {
+    width: 140px !important;
+    height: 190px !important;
+    border-radius: 15px !important;
+}
+#main-section .fixed-top {
+    bottom: 50px;
+}
+}
+</style>
+</head>
+<body>
+    <div class="custom-modal" id='recording-options-modal'>
+        <div class="custom-modal-content">
+            <div class="row text-center">
+                <div class="col-md-6 mb-2">
+                    <span class="record-option" id='record-video'>Record video</span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <span class="record-option" id='record-screen'>Record screen</span>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-outline-danger" id='closeModal'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid room-comm" hidden>
+        <div class="row">
+            <video class="local-video mirror-mode" id='local' volume='0' autoplay muted></video>
+        </div>
+        <div class="row">
+            <div class="main col-md-9" id="main-section">
+            <nav class="navbar fixed-top new_color rounded-0 d-print-none">
+                <div class="pull-right room-comm" hidden>
+                    <span class="text-white">
+                        <span  id='randomNumber'></span>
+                    </span>
+                    <button class="btn btn-sm rounded-0 btn-no-effect vbtn" id='toggle-video' title="Hide Video">
+                        <i class="fa fa-video text-white"></i>
+                    </button>
+                    <button class="btn btn-sm rounded-0 btn-no-effect vbtn" id='toggle-mute' title="Mute">
+                        <i class="fa fa-microphone-alt text-white"></i>
+                    </button>
+                    <button class="btn btn-sm text-white pull-right btn-no-effect" id='toggle-chat-pane' style="display: none;">
+                        <span class="badge badge-danger very-small font-weight-lighter" id='new-chat-notification' hidden>New</span>
+                    </button>
+                    <button class="btn btn-sm rounded-0 btn-no-effect text-white vcut" id="share-screen">
+                            <!-- <i class="fa fa-sign-out-alt text-white"  title="Leave"></i> -->
+                            <img src="https://img.icons8.com/ios-glyphs/40/ffffff/phone-disconnected.png">
+                    </button>
+                    <button class="btn btn-sm rounded-0 btn-no-effect text-white vcut111 opened-it" id="share-screen-1">
+                        <img src="https://img.icons8.com/ios/40/ffffff/chat-message--v2.png"/>
+                    </button>
+                </div>
+            </nav>          
+                <div class="row mt-2 mb-2" id="videos">
+                <div class="card card-sm" id="tMOYp267o52fUqHfAAAs" style="width: 50%; display: none;">
+                <video id="tMOYp267o52fUqHfAAAs-video" autoplay="" class="remote-video"></video>
+            </div>
+            <div class="col-md-3 chat-col d-print-none chat-opened opened-it" id="chat-pane">
+                <div class="row">
+                    <div class="col-12 text-center h2 mb-3">
+                        <img class="img-fluid" src="http://odoco.com.sg/public/assets/images/main-logo.png">
+                    </div>
+                </div>
+
+                <div id="chat-messages"></div>
+
+                <form>
+                    <div class="input-group">
+                        <textarea id="chat-input" class="form-control rounded-0 chat-box border-info" rows="3" placeholder="Type here..."></textarea>
+                        <div class="input-group-append" id="chat-input-btn">
+                            <button type="button" class="btn btn-dark rounded-0 border-info btn-no-effect">
+                                <!-- Send -->
+                                <img src="https://img.icons8.com/material-rounded/40/ffffff/filled-sent.png"/>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<div class="modal" id="new_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Video Call</h5>
+        </div>
+        <div class="modal-body">
+            <p>You have 5 minute left</p>
+        </div>
+        <div class="modal-footer">
+            <button
+            type="button"
+            id="close_modal"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            >
+            Close
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script>
+     setInterval(function () {
+        const room = localStorage.getItem("room");
+      var finalurl = "https://odoco.com.sg:3000/get_detail/";
+    $.ajax({
+      url: finalurl +room,
+      type: "GET",
+      dataType: "json",
+      success: function (result) {
+        if (result == 1) {
+            $("#new_modal").show();
+        } else if(result == 2){
+            window.location.href = "https://odoco.com.sg/buyerIndex/" + room;  
+        }
+      },
+    });
+  }, 50000);
+  setInterval(function () {
+    const room = localStorage.getItem("room");
+    var finalurl = "https://odoco.com.sg:3000/get_details/";
+    $.ajax({
+      url: finalurl +room,
+      type: "GET",
+      dataType: "json",
+      success: function (result) {
+       if(result == 2){
+            window.location.href = "https://odoco.com.sg/buyerIndex/" + room;  
+        }
+      },
+    });
+  }, 2500);
+  $('#close_modal').click(function() {
+    $("#new_modal").hide();
+    });
+    setInterval(function () {
+    const room = localStorage.getItem("room");
+    var finalurl = "https://odoco.com.sg:3000/get_count/";
+    $.ajax({
+      url: finalurl+room,
+      type: "GET",
+      dataType: "json",
+      success: function (result) {
+        console.log(result,'=======asdasdads');
+        if (result == 1) {
+            window.location.href = "https://odoco.com.sg/buyerIndex/" + room;  
+        }
+      },
+    });
+  }, 1000);
+
+//  chat option slider effect
+$('#share-screen-1').click(function(){
+    $('.chat-opened').toggleClass('opened-it');
+    $('#videos .card').toggleClass('full-width-cstm');
+    $('#main-section').toggleClass('full-icon-full');
+    width = $( window ).width();
+    if (width<=768) {
+        $('.chat-opened').addClass('phn-opened-it');  
+    }
+});
+$(window).on("load resize scroll",function(){
+    width = $( window ).width();
+    if (width<=768) {
+        // $('.chat-opened').removeClass('opened-it');
+        $('.chat-opened').addClass('phn-opened-it');
+    }
+});
+
+
+// drag sct
+  
+document.onselectstart = function(e) {
+  e.preventDefault();
+  return false;
+}
+
+var slider = document.getElementById('local'),
+  container = document.getElementById('main-section'),
+//   windowWidth = $("#main-section").html(windowWidth + "px"),
+//   windowHeight = $("#main-section").html(windowHeight + "px");
+  windowWidth = $(this).html('#main-section' + "px"),
+  windowHeight = $(this).html('#main-section' + "px");
+document.mouseState = 'up';
+slider.mouseState = 'up';
+slider.lastMousePosY = null;
+slider.lastMousePosX = null;
+slider.proposedNewPosY = parseInt(slider.style.top, 10); 
+slider.proposedNewPosX = parseInt(slider.style.left, 10);
+slider.style.top = '20px';
+slider.style.left = '20px';
+slider.style.height = '250px';
+slider.style.width = '200px';
+// container.style.top = '20px';
+// container.style.left = '20px';
+container.style.height = windowHeight;
+container.style.width = windowWidth;
+document.onmousedown = function() {
+  document.mouseState = 'down';
+};
+document.onmouseup = function() {
+  document.mouseState = 'up';
+  slider.mouseState = 'up';
+};
+slider.onmousedown = function(e) {
+  slider.lastMousePosY = e.pageY;
+  slider.lastMousePosX = e.pageX;
+  slider.mouseState = 'down';
+  document.mouseState = 'down';
+};
+
+slider.onmouseup = function(e) {
+  slider.mouseState = 'up';
+  document.mouseState = 'up';
+};
+var getAtInt = function getAtInt(obj, attrib) {
+  return parseInt(obj.style[attrib], 10);
+};
+
+
+
+function dragSection(e){
+    if ((document.mouseState === 'down') && (slider.mouseState === 'down')) {
+        slider.proposedNewPosY = getAtInt(slider, 'top') + e.pageY - slider.lastMousePosY;
+        slider.proposedNewPosX = getAtInt(slider, 'left') + e.pageX - slider.lastMousePosX;
+
+        if (slider.proposedNewPosY < getAtInt(container, 'top')) {
+            slider.style.top = container.style.top;
+        } else if (slider.proposedNewPosY > getAtInt(container, 'top') + getAtInt(container, 'height') - getAtInt(slider, 'height')) {
+            slider.style.top = getAtInt(container, 'top') + getAtInt(container, 'height') - getAtInt(slider, 'height') + 'px';
+        } else {
+            slider.style.top = slider.proposedNewPosY + 'px';
+        }
+
+        if (slider.proposedNewPosX < getAtInt(container, 'left')) {
+        slider.style.left = container.style.left;
+        } else if (slider.proposedNewPosX > getAtInt(container, 'left') + getAtInt(container, 'width') - getAtInt(slider, 'width')) {
+        slider.style.left = getAtInt(container, 'left') + getAtInt(container, 'width') - getAtInt(slider, 'width') + 'px';
+        } else {
+        slider.style.left = slider.proposedNewPosX + 'px';
+        }
+        slider.lastMousePosY = e.pageY;
+        slider.lastMousePosX = e.pageX;
+    }
+}
+
+
+document.onmousemove = function(e) {
+    dragSection(e  , 'move');
+};
+
+ var box = document.getElementById('local');
+  
+  /* listen to the touchMove event,
+  every time it fires, grab the location
+  of touch and assign it to box */
+  
+  box.addEventListener('touchmove', function(e) {
+    // grab the location of touch
+    var touchLocation = e.targetTouches[0];
+    
+    // assign box new coordinates based on the touch.
+    box.style.left = touchLocation.pageX + 'px';
+    box.style.top = touchLocation.pageY + 'px';
+  })
+  
+  /* record the position of the touch
+  when released using touchend event.
+  This will be the drop position. */
+  
+  box.addEventListener('touchend', function(e) {
+    // current box position.
+    var x = parseInt(box.style.left);
+    var y = parseInt(box.style.top);
+  })
+</script>
